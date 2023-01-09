@@ -48,6 +48,19 @@ pipeline{
           }
         }
       }
+      stage('Helm Repo Update') {
+        steps {
+         git credentialsId: 'jenkins-token',
+           url: 'https://github.com/goorm-k8s-team1/helm-chart.git',
+           branch: 'main'
+         withCredentials([gitUsernamePassword(credentialsId: 'jenkins-token', gitToolName: 'git-tool')]) {
+           sh "helm template micro-service . --set images.tag=${env.BUILD_NUMBER} --dry-run > kubernetes-manifests/kubernetes-manifests.yaml"
+           sh 'git add kubernetes-manifests/kubernetes-manifests.yaml'
+           sh "git commit -m 'update version ${env.BUILD_NUMBER}'"
+           sh 'git push origin main'
+         }
+        }
+      }
   }
 }
 
