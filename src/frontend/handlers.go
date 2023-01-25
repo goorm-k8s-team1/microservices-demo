@@ -89,7 +89,7 @@ func (fe *frontendServer) homeHandler(w http.ResponseWriter, r *http.Request) {
 	// Only override from env variable if set + valid env
 	if env == "" || stringinSlice(validEnvs, env) == false {
 		fmt.Println("env platform is either empty or invalid")
-		env = "goorm"
+		env = "local"
 	}
 	// Autodetect GCP
 	addrs, err := net.LookupHost("metadata.google.internal.")
@@ -139,7 +139,7 @@ func (plat *platformDetails) setPlatformDetails(env string) {
 		plat.css = "alibaba-platform"
 	} else {
 		plat.provider = "local"
-		plat.css = "local"
+		plat.css = "goorm"
 	}
 }
 
