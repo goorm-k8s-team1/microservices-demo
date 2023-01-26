@@ -138,7 +138,7 @@ func (plat *platformDetails) setPlatformDetails(env string) {
 		plat.provider = "Alibaba Cloud"
 		plat.css = "alibaba-platform"
 	} else {
-		plat.provider = "goormgoorm"
+		plat.provider = "goorm-project"
 		plat.css = "local"
 	}
 }
